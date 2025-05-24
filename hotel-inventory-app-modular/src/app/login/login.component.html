@@ -1,0 +1,30 @@
+<form>
+    <label>
+        Email
+        <input 
+            #emailControl="ngModel"
+            appEmailvalidator
+            appHover="green"
+            type="email" 
+            name="email" 
+            [(ngModel)]="email"
+            autocomplete="off"
+        >
+    </label>
+    <div>
+        {{emailControl.errors | json}}
+    </div>
+    <label>
+        Password
+        <input 
+            appHover="pink"
+            type="password" 
+            name="password" 
+            [(ngModel)]="password"
+            autocomplete="off"
+        >
+    </label>
+    <div>
+        <button type="submit" class="btn btn-primary" (click)="login()">Submit</button>
+    </div>
+</form>

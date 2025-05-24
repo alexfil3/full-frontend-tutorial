@@ -1,0 +1,36 @@
+<!-- <h1>Welcome to {{hotelName}}</h1> -->
+<app-header/>
+<p [hidden]="hideRooms" [innerText]="numberOfRooms"></p>
+
+<!-- <div>
+    {{rooms$ | async | json}}
+</div> -->
+
+<button (click)="toggle()">Toggle</button>
+
+<div>
+    <button class="btn btn-primary" routerLink="add" routerLinkActive="router-link-active" >Add room</button>
+</div>
+<div>
+    <button class="btn btn-primary" (click)="editRoom()">Edit room</button>
+</div>
+<div>
+    <button class="btn btn-primary" (click)="deleteRoom()">Delete room</button>
+</div>
+
+<h1>{{getError$ | async}}</h1>
+<h1>{{totalBytes}}</h1>
+<h1>Number of rooms {{roomsCount$ | async}}</h1>
+
+<router-outlet></router-outlet>
+
+<div *ngIf="rooms$ | async as rooms;else second">
+    <app-rooms-list (selectedRoom)="selectRoom($event)" [rooms]="rooms" [title]="title"/>
+</div>
+<ng-template #second>
+    <p>No rooms available</p>
+</ng-template>
+
+<div *ngIf="selectedRoom">
+    {{selectedRoom | json}}
+</div>

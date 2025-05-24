@@ -1,0 +1,53 @@
+{{roomsForm.pristine | json}}
+{{roomsForm.dirty | json}}
+{{roomsForm.valid | json}}
+{{roomsForm.invalid | json}}
+{{roomsForm.value | json}}
+
+<div *ngIf="successMessage !== ''" class="alert alert-success">
+    {{successMessage}}
+</div>
+
+<form #roomsForm="ngForm" (ngSubmit)="addRoom(roomsForm)">
+    <label class="form-group">
+        Room Type
+        <input required type="text" class="form-control" name="roomType" [(ngModel)]="room.roomType">
+    </label>
+    <label class="form-group">
+        Room Number
+        <input required type="number" class="form-control" name="roomNumber" [(ngModel)]="room.roomNumber">
+    </label>
+    <label class="form-group">
+        Amenities
+        <input #amenities="ngModel" minlength="5" maxlength="50" required type="text" class="form-control" name="amenities" [(ngModel)]="room.amenities">
+    </label>
+    <div class="alert alert-danger" *ngIf="amenities.errors?.['minlength']">
+        Amenities should be 5 chars minimum
+    </div>
+    <div *ngIf="amenities.dirty && amenities.errors?.['required']">
+        Enter amenities
+    </div>
+    <label class="form-group">
+        Price
+        <input required type="number" class="form-control" name="price" [(ngModel)]="room.price">
+    </label>
+    <label class="form-group">
+        Photos
+        <input required type="text" class="form-control" name="photos" [(ngModel)]="room.photos">
+    </label>
+    <label class="form-group">
+        Checkin Time
+        <input required type="datetime" class="form-control" name="checkinTime" [(ngModel)]="room.checkinTime">
+    </label>
+    <label class="form-group">
+        Checkout Time
+        <input required type="datetime" class="form-control" name="checkoutTime" [(ngModel)]="room.checkoutTime">
+    </label>
+    <label class="form-group">
+        Rating
+        <input min="1" max="5" required type="number" class="form-control" name="rating" [(ngModel)]="room.rating">
+    </label>
+    <div>
+        <button [disabled]="roomsForm.invalid" required type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
