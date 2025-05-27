@@ -30,12 +30,12 @@ export class BookingComponent implements OnInit {
       bookingAmount: [''],
       bookingDate: [''],
       mobileNumber: [''],
-      guestName: ['', [Validators.required, Validators.minLength(3)]],
+      guestName: ['', [Validators.required, Validators.minLength(5)]],
       address: this.fb.group({
-        addressLine1: [''],
+        addressLine1: ['', [Validators.required]],
         addressLine2: [''],
-        city: [''],
-        state: [''],
+        city: ['', [Validators.required]],
+        state: ['', [Validators.required]],
         country: [''],
         zipCode: [''],
       }),
@@ -48,6 +48,27 @@ export class BookingComponent implements OnInit {
 
   addBooking() {
     console.log(this.bookingForm.getRawValue())
+    this.bookingForm.reset({
+      roomId: 2,
+      guestEmail: '',
+      checkinDate: '',
+      checkoutDate: '',
+      bookingStatus: '',
+      bookingAmount: '',
+      bookingDate: '',
+      mobileNumber: '',
+      guestName: '',
+      address: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        country: '',
+        zipCode: '',
+      },
+      guests: [],
+      tnc: false,
+    })
   }
 
   addGuest() {
@@ -57,7 +78,7 @@ export class BookingComponent implements OnInit {
   }
 
   addGuestControl() {
-    return this.fb.group({guestName: [''], age: new FormControl('')})
+    return this.fb.group({ guestName: ['', { validators: Validators.required }], age: new FormControl('')})
   }
 
   addPassport() {

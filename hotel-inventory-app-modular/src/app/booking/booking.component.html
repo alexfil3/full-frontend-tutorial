@@ -60,6 +60,11 @@
             formControlName="guestName"
             placeholder="Guest Name"
         />
+        @if (bookingForm.get('guestName')?.hasError('minlength')) {
+            <mat-error>
+                Guest name should be minimum 5 characters
+            </mat-error>
+        }
 
     </mat-form-field>
 
@@ -138,6 +143,11 @@
                         formControlName="addressLine1"
                         placeholder="Address Line 1"
                     />
+                    @if (bookingForm.get('address.addressLine1')?.hasError('required')) {
+                        <mat-error>
+                            Address Line1 is required
+                        </mat-error>
+                    }            
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
@@ -212,14 +222,21 @@
                 <div *ngFor="let guest of guests.controls; let i = index">
                     <div [formGroupName]="i">
                         <mat-form-field>
+                            <mat-label>Guest Name</mat-label>
                             <input
                                 type="text"
                                 matInput
                                 formControlName="guestName"
                                 placeholder="GuestName"
                             />
+                            @if (bookingForm.get(['guests', i, 'guestName'])?.hasError('required')) {
+                                <mat-error>
+                                    Guest name is required
+                                </mat-error>
+                            }
                         </mat-form-field>
                         <mat-form-field>
+                            <mat-label>Guest Age</mat-label>
                             <input
                                 type="number"
                                 matInput
