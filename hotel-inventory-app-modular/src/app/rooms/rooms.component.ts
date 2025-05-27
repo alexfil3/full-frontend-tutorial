@@ -8,6 +8,7 @@ import { catchError, Observable, Subscription, of, Subject, map } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 import { HeaderModule } from '../header/header.module';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-rooms',
@@ -57,7 +58,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, OnDestroy
     map(rooms => rooms.length)
   )
 
-  constructor(@SkipSelf() private roomsService: RoomsService) {}
+  constructor(@SkipSelf() private roomsService: RoomsService, private configService: ConfigService) {}
 
   ngOnInit(): void {
     this.roomsService.getPhotos().subscribe(event => {

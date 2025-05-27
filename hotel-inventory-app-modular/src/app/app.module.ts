@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
@@ -22,7 +21,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HoverDirective } from './hover.directive';
 import { EmailvalidatorDirective } from './emailvalidator/emailvalidator.directive';
-import { RoomsModule } from './rooms/rooms.module';
+import { RouteConfigToken } from './services/routeConfig.service';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
@@ -41,7 +40,6 @@ function initFactory(initService: InitService) {
   ],
   imports: [
     BrowserModule,
-    RoomsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -56,6 +54,10 @@ function initFactory(initService: InitService) {
     {
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
+    },
+    {
+      provide: RouteConfigToken,
+      useValue: {title: 'Home'},
     },
     {
       provide: HTTP_INTERCEPTORS,
