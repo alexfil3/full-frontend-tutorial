@@ -1,8 +1,8 @@
-{{roomsForm.pristine | json}}
+<!-- {{roomsForm.pristine | json}}
 {{roomsForm.dirty | json}}
 {{roomsForm.valid | json}}
 {{roomsForm.invalid | json}}
-{{roomsForm.value | json}}
+{{roomsForm.value | json}} -->
 
 <div *ngIf="successMessage !== ''" class="alert alert-success">
     {{successMessage}}
@@ -11,7 +11,7 @@
 <form #roomsForm="ngForm" (ngSubmit)="addRoom(roomsForm)">
     <label class="form-group">
         Room Type
-        <input required type="text" class="form-control" name="roomType" [(ngModel)]="room.roomType">
+        <input required type="text" class="form-control" name="roomType" [(ngModel)]="room.roomType" [ngModelOptions]="{updateOn: 'blur'}">
     </label>
     <label class="form-group">
         Room Number

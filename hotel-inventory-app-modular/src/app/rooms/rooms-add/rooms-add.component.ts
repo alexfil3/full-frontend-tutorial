@@ -23,7 +23,9 @@ export class RoomsAddComponent {
 
   successMessage: string = ''
 
-  constructor(private roomsService: RoomsService) { }
+  constructor(private roomsService: RoomsService) { 
+    console.log('here')
+  }
   
   addRoom(roomsForm: NgForm) {
     this.roomsService

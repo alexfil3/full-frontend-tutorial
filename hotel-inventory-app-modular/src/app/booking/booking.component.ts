@@ -1,6 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BookingService } from './booking.service';
+import { exhaustMap, mergeMap, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-booking',
@@ -18,18 +20,28 @@ export class BookingComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private fb: FormBuilder,
+    private bookingService: BookingService,
   ) { }
 
   ngOnInit(): void {
     this.bookingForm = this.fb.group({
       roomId: new FormControl({value: '307', disabled: true}, {validators: Validators.required}),
-      guestEmail: ['', [Validators.required, Validators.email]],
+      guestEmail: [
+        '',
+        {
+          updateOn: 'blur',
+          validators: [Validators.required, Validators.email]
+        }
+      ],
       checkinDate: [''],
       checkoutDate: [''],
       bookingStatus: [''],
       bookingAmount: [''],
       bookingDate: [''],
-      mobileNumber: [''],
+      mobileNumber: [
+        '',
+        {updateOn: 'blur'}
+      ],
       guestName: ['', [Validators.required, Validators.minLength(5)]],
       address: this.fb.group({
         addressLine1: ['', [Validators.required]],
@@ -44,14 +56,51 @@ export class BookingComponent implements OnInit {
       ]),
       tnc: new FormControl(false, {validators: [Validators.requiredTrue]}),
     })
+
+    this.getBookingData();
+
+    // this.bookingForm.valueChanges.subscribe(data => {
+    //   this.bookingService.bookRoom(data).subscribe(data => {});
+    // })
+
+    this.bookingForm.valueChanges.pipe(
+      exhaustMap(data => this.bookingService.bookRoom(data))
+    ).subscribe(data => console.log(data))
   }
 
   addBooking() {
-    console.log(this.bookingForm.getRawValue())
+    console.log(this.bookingForm.getRawValue());
+    // this.bookingService.bookRoom(this.bookingForm.getRawValue()).subscribe(data => {
+    //   console.log(data)
+    // })
     this.bookingForm.reset({
       roomId: 2,
       guestEmail: '',
       checkinDate: '',
+      checkoutDate: '',
+      bookingStatus: '',
+      bookingAmount: '',
+      bookingDate: '',
+      mobileNumber: '',
+      guestName: '',
+      address: {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        country: '',
+        zipCode: '',
+      },
+      guests: [],
+      tnc: false,
+    })
+  }
+
+  getBookingData() {
+    this.bookingForm.patchValue({
+      roomId: 2,
+      guestEmail: 'test@gmail.com',
+      checkinDate: new Date('10-fb-2020'),
       checkoutDate: '',
       bookingStatus: '',
       bookingAmount: '',
