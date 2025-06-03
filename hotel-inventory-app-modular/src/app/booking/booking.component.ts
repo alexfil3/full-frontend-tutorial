@@ -3,6 +3,8 @@ import { ConfigService } from '../services/config.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BookingService } from './booking.service';
 import { exhaustMap, mergeMap, switchMap } from 'rxjs';
+import { CustomValidator } from './validators/CustomValidator';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-booking',
@@ -21,11 +23,14 @@ export class BookingComponent implements OnInit {
     private configService: ConfigService,
     private fb: FormBuilder,
     private bookingService: BookingService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    const roomid = this.route.snapshot.paramMap.get('roomid');
+
     this.bookingForm = this.fb.group({
-      roomId: new FormControl({value: '307', disabled: true}, {validators: Validators.required}),
+      roomId: new FormControl({value: roomid, disabled: true}, {validators: Validators.required}),
       guestEmail: [
         '',
         {
@@ -42,7 +47,7 @@ export class BookingComponent implements OnInit {
         '',
         {updateOn: 'blur'}
       ],
-      guestName: ['', [Validators.required, Validators.minLength(5)]],
+      guestName: ['', [Validators.required, Validators.minLength(5), CustomValidator.ValidateName, CustomValidator.ValidateSpecialChar('*')]],
       address: this.fb.group({
         addressLine1: ['', [Validators.required]],
         addressLine2: [''],
@@ -55,6 +60,10 @@ export class BookingComponent implements OnInit {
         this.addGuestControl(),
       ]),
       tnc: new FormControl(false, {validators: [Validators.requiredTrue]}),
+    },
+      {
+        updateOn: 'blur',
+        validators: [CustomValidator.validatedate],
     })
 
     this.getBookingData();
@@ -98,7 +107,6 @@ export class BookingComponent implements OnInit {
 
   getBookingData() {
     this.bookingForm.patchValue({
-      roomId: 2,
       guestEmail: 'test@gmail.com',
       checkinDate: new Date('10-fb-2020'),
       checkoutDate: '',

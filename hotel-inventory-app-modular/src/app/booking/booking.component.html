@@ -60,6 +60,7 @@
             formControlName="guestName"
             placeholder="Guest Name"
         />
+        {{bookingForm.get('guestName')?.errors | json}}
         @if (bookingForm.get('guestName')?.hasError('minlength')) {
             <mat-error>
                 Guest name should be minimum 5 characters
@@ -102,30 +103,32 @@
         <mat-label>Checkin Date</mat-label>
         <input
             matInput
-            [matDatepicker]="checkinPicker"
+            [matDatepicker]="picker"
             formControlName="checkinDate"
         />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle
             matIconSuffix
-            [for]="checkinPicker"
+            [for]="picker"
         ></mat-datepicker-toggle>
-        <mat-datepicker #checkinPicker></mat-datepicker>
+        <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
         <mat-label>Checkout Date</mat-label>
         <input
+            matNativeControl="date"
             matInput
-            [matDatepicker]="checkoutPicker"
+            [matDatepicker]="checkout"
             formControlName="checkoutDate"
         />
+        {{bookingForm.get('checkoutDate')?.errors | json}}
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle
             matIconSuffix
-            [for]="checkoutPicker"
+            [for]="checkout"
         ></mat-datepicker-toggle>
-        <mat-datepicker #checkoutPicker></mat-datepicker>
+        <mat-datepicker #checkout></mat-datepicker>
     </mat-form-field>
 
     <div formGroupName="address">

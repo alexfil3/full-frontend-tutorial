@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { HoverDirective } from './hover.directive';
 import { EmailvalidatorDirective } from './emailvalidator/emailvalidator.directive';
 import { RouteConfigToken } from './services/routeConfig.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 function initFactory(initService: InitService) {
   return () => initService.init();
