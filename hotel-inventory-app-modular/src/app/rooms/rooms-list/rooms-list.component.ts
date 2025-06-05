@@ -5,15 +5,18 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-rooms-list',
-  imports: [NgFor, LowerCasePipe, CurrencyPipe, DatePipe, DecimalPipe, NgClass, RouterLink],
+  standalone: false,
+  // imports: [NgFor, LowerCasePipe, CurrencyPipe, DatePipe, DecimalPipe, NgClass, RouterLink],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsListComponent implements OnChanges, OnDestroy {
-  @Input() rooms: RoomDetails[] | null = [];
+  @Input() rooms: RoomDetails[]  = [];
 
   @Input() title: string = '';
+
+  @Input() price = 0;
 
   @Output() selectedRoom = new EventEmitter<RoomDetails>();
 

@@ -16,7 +16,7 @@ import { filter } from 'rxjs';
 export class AppComponent implements  OnInit {
   title = 'hotel-inventory-app-modular';
 
-  @ViewChild('name', { static: true }) name!: ElementRef;
+  // @ViewChild('name', { static: true }) name!: ElementRef;
 
   constructor(@Optional() private loggerService: LoggerService,
     @Inject(localStorageToken) private localStorage: any,
@@ -44,7 +44,7 @@ export class AppComponent implements  OnInit {
     })
 
     this.loggerService?.log('App component ngOnInit()');
-    this.name.nativeElement.innerText = 'Hotel California';
+    // this.name.nativeElement.innerText = 'Hotel California';
     this.localStorage.setItem('name', 'Hilton Hotel');
   }
 

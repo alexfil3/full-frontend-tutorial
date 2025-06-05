@@ -23,9 +23,13 @@
 <!-- <h1>{{getError$ | async}}</h1>
 <h1>{{totalBytes}}</h1>
 <h1>Number of rooms {{roomsCount$ | async}}</h1> -->
+<!-- {{priceFilter | json}} -->
+<div>
+    <input type="number" class="form-control" placeholder="Price" [formControl]="priceFilter">
+</div>
 
 <div *ngIf="rooms$ | async as rooms;else second">
-    <app-rooms-list (selectedRoom)="selectRoom($event)" [rooms]="rooms" [title]="title"/>
+    <app-rooms-list (selectedRoom)="selectRoom($event)" [price]="priceFilter.value ?? 0" [rooms]="rooms" [title]="title"/>
 </div>
 <ng-template #second>
     <p>No rooms available</p>

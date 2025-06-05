@@ -1,15 +1,39 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { APP_CONFIG } from './AppConfig/appconfig.service';
+import { RouteConfig } from './services/routeConfig';
+import { RouteConfigToken } from './services/routeConfig.service';
+import { AppNavComponent } from './app-nav/app-nav.component';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { asNativeElements } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        MatSidenav,
+        MatSidenavContainer,
+        MatToolbar,
+        MatNavList,
+        MatListItem,
+        MatSidenavContent,
+        MatIcon,
+      ],
+      providers: [
+        HttpClient,
+        HttpHandler,
+        { provide: APP_CONFIG, useValue: {} },
+        { provide: RouteConfigToken, useValue: {} },
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        AppNavComponent,
       ],
     }).compileComponents();
   });
@@ -24,12 +48,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('hotel-inventory-app-modular');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, hotel-inventory-app-modular');
   });
 });

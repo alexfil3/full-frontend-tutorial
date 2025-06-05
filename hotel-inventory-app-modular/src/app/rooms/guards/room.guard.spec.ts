@@ -1,17 +1,39 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateChildFn } from '@angular/router';
+import { RoomsGuard } from './room.guard';
+import { LoginService } from '../../login/login.service';
 
-import { roomGuard } from './room.guard';
-
-describe('roomGuard', () => {
-  const executeGuard: CanActivateChildFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => roomGuard(...guardParameters));
+describe('RoomsGuard', () => {
+  let guard: RoomsGuard;
+  let loginServiceSpy: jasmine.SpyObj<LoginService>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    loginServiceSpy = jasmine.createSpyObj('LoginService', [], { isAdmin: false });
+
+    TestBed.configureTestingModule({
+      providers: [
+        RoomsGuard,
+        { provide: LoginService, useValue: loginServiceSpy }
+      ]
+    });
+
+    guard = TestBed.inject(RoomsGuard);
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(guard).toBeTruthy();
+  });
+
+  it('should allow access for admin (canActivateChild)', () => {
+    Object.defineProperty(loginServiceSpy, 'isAdmin', { get: () => true });
+    expect(guard.canActivateChild({} as any, {} as any)).toBeTrue();
+  });
+  
+  it('should block access for non-admin (canActivateChild)', () => {
+    Object.defineProperty(loginServiceSpy, 'isAdmin', { get: () => false });
+    expect(guard.canActivateChild({} as any, {} as any)).toBeFalse();
+  });  
+
+  it('should always allow loading (canLoad)', () => {
+    expect(guard.canLoad({} as any, [])).toBeTrue();
   });
 });

@@ -9,10 +9,11 @@ import { HttpEventType } from '@angular/common/http';
 import { HeaderModule } from '../header/header.module';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { ConfigService } from '../services/config.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-rooms',
-  imports: [NgIf, RoomsListComponent, JsonPipe, AsyncPipe, JsonPipe, HeaderModule, RouterOutlet, RouterLink],
+  standalone: false,
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.scss'] // Fixed from 'styleUrl' to 'styleUrls'
 })
@@ -54,6 +55,8 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, OnDestroy
 
   totalBytes = 0;
 
+  priceFilter = new FormControl(0);
+
   roomsCount$ = this.roomsService.getRooms$.pipe(
     map(rooms => rooms.length)
   )
@@ -93,10 +96,10 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, OnDestroy
   }
 
   ngAfterViewInit(): void {
-    this.HeaderComponent.title = 'Hotel Hilton';
-    this.HeaderComponents.forEach(header => {
-      header.title = 'Hotel Hilton';
-    });
+    // this.HeaderComponent.title = 'Hotel Hilton';
+    // this.HeaderComponents.forEach(header => {
+    //   header.title = 'Hotel Hilton';
+    // });
   }
 
   toggle() {

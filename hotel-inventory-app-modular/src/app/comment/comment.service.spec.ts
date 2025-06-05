@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InitService } from './init.service';
+import { CommentService } from './comment.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
-describe('InitService', () => {
-  let service: InitService;
+describe('CommentService', () => {
+  let service: CommentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [HttpClient, HttpHandler]
     });
-    service = TestBed.inject(InitService);
+    service = TestBed.inject(CommentService);
   });
 
   it('should be created', () => {
