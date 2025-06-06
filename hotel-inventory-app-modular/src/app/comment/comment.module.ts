@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CommentRoutingModule } from './comment-routing.module';
 import { CommentComponent } from './comment.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({

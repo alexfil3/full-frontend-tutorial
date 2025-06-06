@@ -22,7 +22,6 @@ import { LoginComponent } from './login/login.component';
 import { HoverDirective } from './hover.directive';
 import { EmailvalidatorDirective } from './emailvalidator/emailvalidator.directive';
 import { RouteConfigToken } from './services/routeConfig.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { GlobalErrorHandler } from './errorHandler.service';
 import { RouterOutlet } from '@angular/router';
 

@@ -1,6 +1,4 @@
-import { Component, ViewChild, ViewContainerRef, AfterViewInit, OnInit, ElementRef, Optional, Inject } from '@angular/core';
-import { RoomsComponent } from './rooms/rooms.component';
-import { LoggerService } from './logger.service';
+import { Component, OnInit, Inject } from '@angular/core';
 import { localStorageToken } from './localstorage.token';
 import { InitService } from './init.service';
 import { ConfigService } from './services/config.service';
@@ -16,9 +14,7 @@ import { filter } from 'rxjs';
 export class AppComponent implements  OnInit {
   title = 'hotel-inventory-app-modular';
 
-  // @ViewChild('name', { static: true }) name!: ElementRef;
-
-  constructor(@Optional() private loggerService: LoggerService,
+  constructor(
     @Inject(localStorageToken) private localStorage: any,
     private initService: InitService,
     private configService: ConfigService,
@@ -28,9 +24,6 @@ export class AppComponent implements  OnInit {
   }
   
   ngOnInit(): void {
-    // this.router.events.subscribe((event) => {
-    //   console.log(event);
-    // })
     this.router.events.pipe(
       filter(event => event instanceof NavigationStart)
     ).subscribe(event => {
@@ -43,15 +36,6 @@ export class AppComponent implements  OnInit {
       console.log(event)
     })
 
-    this.loggerService?.log('App component ngOnInit()');
-    // this.name.nativeElement.innerText = 'Hotel California';
     this.localStorage.setItem('name', 'Hilton Hotel');
   }
-
-  // @ViewChild('user', { read: ViewContainerRef }) vcr!: ViewContainerRef;
-  
-  // ngAfterViewInit(): void {
-  //   const componentRef = this.vcr.createComponent(RoomsComponent);
-  //   componentRef.instance.numberOfRooms = 1000;
-  // }
 }

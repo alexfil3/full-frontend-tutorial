@@ -1,15 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { RoomDetails } from '../rooms';
-import { CurrencyPipe, DatePipe, DecimalPipe, LowerCasePipe, NgClass, NgFor } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-rooms-list',
   standalone: false,
-  // imports: [NgFor, LowerCasePipe, CurrencyPipe, DatePipe, DecimalPipe, NgClass, RouterLink],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomsListComponent implements OnChanges, OnDestroy {
   @Input() rooms: RoomDetails[]  = [];

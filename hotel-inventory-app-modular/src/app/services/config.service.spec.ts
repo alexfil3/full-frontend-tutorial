@@ -11,7 +11,7 @@ describe('ConfigService', () => {
         ConfigService,
         {
           provide: RouteConfigToken,
-          useValue: { apiUrl: 'http://test-api' } // 👈 здесь ваш мок конфиг
+          useValue: { apiUrl: 'http://test-api' }
         }
       ]
     });

@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ConfigService } from '../services/config.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BookingService } from './booking.service';
-import { exhaustMap, mergeMap, switchMap } from 'rxjs';
+import { exhaustMap } from 'rxjs';
 import { CustomValidator } from './validators/CustomValidator';
 import { ActivatedRoute } from '@angular/router';
 
@@ -68,10 +68,6 @@ export class BookingComponent implements OnInit {
 
     this.getBookingData();
 
-    // this.bookingForm.valueChanges.subscribe(data => {
-    //   this.bookingService.bookRoom(data).subscribe(data => {});
-    // })
-
     this.bookingForm.valueChanges.pipe(
       exhaustMap(data => this.bookingService.bookRoom(data))
     ).subscribe(data => console.log(data))
@@ -79,9 +75,6 @@ export class BookingComponent implements OnInit {
 
   addBooking() {
     console.log(this.bookingForm.getRawValue());
-    // this.bookingService.bookRoom(this.bookingForm.getRawValue()).subscribe(data => {
-    //   console.log(data)
-    // })
     this.bookingForm.reset({
       roomId: 2,
       guestEmail: '',

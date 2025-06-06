@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, GuardResult, MaybeAsync, Route, UrlSegment, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Comments } from '../comment';
 import { CommentService } from '../comment.service';

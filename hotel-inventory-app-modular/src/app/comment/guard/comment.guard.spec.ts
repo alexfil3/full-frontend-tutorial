@@ -18,6 +18,6 @@ describe('CommentGuard', () => {
   });
 
   it('should resolve without error', () => {
-    guard.resolve({} as any, {} as any); // просто вызов
+    guard.resolve({} as any, {} as any);
   });
 });

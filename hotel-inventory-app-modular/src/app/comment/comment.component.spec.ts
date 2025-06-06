@@ -17,7 +17,7 @@ beforeEach(async () => {
       {
         provide: ActivatedRoute,
         useValue: {
-          data: of({ comments: [] }) // ✔ корректный Observable
+          data: of({ comments: [] })
         }
       }
     ]

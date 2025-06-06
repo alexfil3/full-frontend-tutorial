@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, GuardResult, MaybeAsync, Route, UrlSegment, CanDeactivate } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UrlTree } from '@angular/router';
 import { BookingComponent } from '../booking.component';
